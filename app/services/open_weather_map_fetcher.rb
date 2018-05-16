@@ -12,11 +12,13 @@ class OpenWeatherMapFetcher
     @city = city_name
     @country = ::Country.find_by_name(country_name)
     @errors = []
+
     validate
   end
 
   def fetch
-    return unless valid?
+    return self unless valid?
+
     @raw_data = JSON.parse(self.class.get(url).body)
     errors << @raw_data['message'] unless raw_data['cod'] == 200
     self
@@ -29,7 +31,7 @@ class OpenWeatherMapFetcher
   private
 
   def validate
-    @errors << 'Empty data' unless @city
+    @errors << 'Please enter country and city' unless @city && @city.present?
   end
 
   def url

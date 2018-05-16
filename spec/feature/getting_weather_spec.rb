@@ -6,10 +6,24 @@ describe 'Getting weather', type: :feature, js: true do
     expect(page).to have_content('Open Weather App')
   end
 
+  it 'shows no error when firts time on a page' do
+    expect(page).to_not have_content('Please enter country and city')
+    expect(page).to_not have_content('Nothing to geocode')
+    expect(page).to_not have_content('city not found')
+    expect(page).to_not have_content('Weather for')
+  end
+
   it 'shows error when no data given' do
+    click_button('Submit')
+    expect(page).to have_content('Please enter country and city')
+    expect(page).to_not have_content('Weather for')
+  end
+
+  it 'shows error when no city data given' do
     fill_in 'country', with: 'Germany'
     click_button('Submit')
     expect(page).to have_content('Please enter country and city')
+    expect(page).to_not have_content('Weather for')
   end
 
   it 'shows the weather for a given city and country' do
