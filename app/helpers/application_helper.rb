@@ -2,7 +2,7 @@ module ApplicationHelper
   def weather_title(weather)
     title = 'Weather for '
 
-    if weather.city
+    if weather.try(:city)
       title += weather.city
       title += ", #{weather.country.name}" if weather.country
     else

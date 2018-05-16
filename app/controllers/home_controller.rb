@@ -1,11 +1,13 @@
 class HomeController < ApplicationController
   def index
-    @weather = OpenWeatherMapFetcher.fetch(params[:country], params[:city])
+    @weather = OpenWeatherMap::CityFetcher.fetch(params[:country], params[:city])
     flash[:alert] = @weather.errors if search_params.include?(:city)
   end
 
   def random
-    @weather = OpenWeatherMapFetcher.fetch_random
+    lat = rand(-90.000000000...90.000000000)
+    lon = rand(-180.000000000...180.000000000)
+    @weather = OpenWeatherMap::CoordsFetcher.fetch(lat, lon)
     render :index
   end
 
