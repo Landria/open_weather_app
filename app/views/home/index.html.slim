@@ -8,4 +8,32 @@ h1 Open Weather App
 .container#weather
   - if @weather && @weather.valid?
     h2=weather_title(@weather)
-    = @weather.raw_data
+    br
+    div
+      h4 #{@weather.raw_data['weather'].first['main']} (#{@weather.raw_data['weather'].first['description']})
+      h4 Weather:
+      ul
+        li Temperature: #{@weather.raw_data['main']['temp']} Celsius
+        li Temperature min: #{@weather.raw_data['main']['temp_min']} Celsius
+        li Temperature max: #{@weather.raw_data['main']['temp_max']} Celsius
+        li Humidity: #{@weather.raw_data['main']['humidity']}%
+        li Pressure: #{@weather.raw_data['main']['pressure']} hPa
+        li Visibility: #{@weather.raw_data['visibility']} meters
+        li Wind speed: #{@weather.raw_data['wind']['speed']} meter/sec
+        - if @weather.raw_data['clouds']
+          li Clouds: #{@weather.raw_data['clouds']['all']}%
+        - if @weather.raw_data['rain']
+          li Rain: #{@weather.raw_data['rain']['rain.3h']}
+        - if @weather.raw_data['snow']
+          li Snow: #{@weather.raw_data['snow']['snow.3h']}
+      h4 Coordinates:
+      ul
+        li lon: #{@weather.raw_data['coord']['lon']}
+        li lat: #{@weather.raw_data['coord']['lat']}
+
+      h4 Sys
+      ul
+        li Sunrise: #{time_from_timestamp(@weather.raw_data['sys']['sunrise'].to_s)}
+        li Sunset: #{time_from_timestamp(@weather.raw_data['sys']['sunset'].to_s)}
+
+

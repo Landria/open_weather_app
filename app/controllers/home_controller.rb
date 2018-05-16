@@ -1,10 +1,10 @@
 class HomeController < ApplicationController
   def index
-    if params[:city].present?
+    if search_params[:city].present?
       @weather = OpenWeatherMapFetcher.new(params[:country], params[:city]).fetch
       flash[:alert] = @weather.errors
     else
-      flash[:alert] = 'Please enter country and city'
+      flash[:alert] = 'Please enter country and city' if search_params.include?(:city)
     end
   end
 

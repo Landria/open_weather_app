@@ -17,6 +17,8 @@ describe 'Getting weather', type: :feature, js: true do
     fill_in 'City', with: 'Berlin'
     click_button('Submit')
     expect(page).to have_content('Weather for Berlin, Germany')
+    expect(page).to have_content('Visibility')
+    expect(page).to have_content('Temperature')
   end
 
   it 'shows the weather for a given city without (or wrong) country' do
@@ -24,9 +26,13 @@ describe 'Getting weather', type: :feature, js: true do
     fill_in 'City', with: 'Berlin'
     click_button('Submit')
     expect(page).to have_content('Weather for Berlin')
+    expect(page).to have_content('Humidity')
+    expect(page).to have_content('Sunrise')
 
     fill_in 'City', with: 'Berlin'
     click_button('Submit')
     expect(page).to have_content('Weather for Berlin')
+    expect(page).to have_content('Wind speed')
+    expect(page).to have_content('Temperature min')
   end
 end

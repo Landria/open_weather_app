@@ -35,7 +35,7 @@ class OpenWeatherMapFetcher
   def url
     url = ENDPOINT + "?q=#{city}"
     url += ",#{country.alpha2.downcase}" if country
-    url += "&APPID=#{APPID}"
+    url += "&APPID=#{APPID}&units=metric"
     url
   end
 end
