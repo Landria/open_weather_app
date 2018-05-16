@@ -1,1 +1,11 @@
 h1 Open Weather App
+
+=form_tag(root_path, method: :get, class: 'form-inline')
+  input#inlineFormInput.form-control.mb-2.mr-sm-2.mb-sm-0 type="text" name="country" placeholder="Country"
+  input#inlineFormInput.form-control.mb-2.mr-sm-2.mb-sm-0 type="text" name="city" placeholder="City"
+  button.btn.btn-primary type="submit"  Submit
+
+.container#weather
+  - if @weather
+    h2 Weather for #{params[:country]}, #{params[:city]}
+    = @weather.inspect
