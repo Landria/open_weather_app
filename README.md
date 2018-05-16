@@ -21,6 +21,7 @@ The app will be available via 0.0.0.0:3000 address
 7. Store a request history for a user (add registration?)
 8. More specs (add VCR gem)
 9. Add city and country field autocompletion
-10. Use AJAX for search request
+10. Use AJAX for search requests
 11. Move endpoint and APPID to Settings
 12. Implement a map to allow user to get the weather for any random point
+13. Refactor OpenWeatherMapFetcher class using AbstractFactory pattern

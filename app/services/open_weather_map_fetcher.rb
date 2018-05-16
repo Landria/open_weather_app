@@ -8,6 +8,18 @@ class OpenWeatherMapFetcher
 
   attr_accessor :country, :city, :errors, :raw_data, :latitude, :longitude
 
+  class << self
+    def fetch(country_name, city_name)
+      new(country_name, city_name).fetch
+    end
+
+    def fetch_random
+      lat = rand(-90.000000000...90.000000000)
+      lon = rand(-180.000000000...180.000000000)
+      new(nil, nil, lat, lon).fetch
+    end
+  end
+
   def initialize(country_name, city_name, lat = nil, lon = nil)
     @city = city_name
     @country = ::Country.find_by_name(country_name)
@@ -28,12 +40,6 @@ class OpenWeatherMapFetcher
 
   def valid?
     errors.empty?
-  end
-
-  def self.fetch_random
-    lat = rand(-90.000000000...90.000000000)
-    lon = rand(-180.000000000...180.000000000)
-    new(nil, nil, lat, lon).fetch
   end
 
   private
