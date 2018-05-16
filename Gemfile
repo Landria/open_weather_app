@@ -34,6 +34,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem "therubyracer"
 gem "less-rails"
 gem "twitter-bootstrap-rails"
+gem "slim"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
