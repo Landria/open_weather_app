@@ -6,12 +6,14 @@ class OpenWeatherMapFetcher
   ENDPOINT = 'http://api.openweathermap.org/data/2.5/weather'.freeze
   APPID = 'b0178317cb5e3c47d249176cf69353d1'.freeze
 
-  attr_accessor :country, :city, :errors, :raw_data
+  attr_accessor :country, :city, :errors, :raw_data, :latitude, :longitude
 
-  def initialize(country_name, city_name)
+  def initialize(country_name, city_name, lat = nil, lon = nil)
     @city = city_name
     @country = ::Country.find_by_name(country_name)
     @errors = []
+    @latitude = lat
+    @longitude = lon
 
     validate
   end
@@ -28,15 +30,28 @@ class OpenWeatherMapFetcher
     errors.empty?
   end
 
+  def self.fetch_random
+    lat = rand(-90.000000000...90.000000000)
+    lon = rand(-180.000000000...180.000000000)
+    new(nil, nil, lat, lon).fetch
+  end
+
   private
 
   def validate
-    @errors << 'Please enter country and city' unless @city && @city.present?
+    @errors << 'Please enter country and city' unless (@city && @city.present?) or (@latitude && @longitude)
   end
 
   def url
-    url = ENDPOINT + "?q=#{city}"
-    url += ",#{country.alpha2.downcase}" if country
+    url = ENDPOINT
+
+    if latitude && longitude
+      url += "?lat=#{latitude}&lon=#{longitude}&cnt=10"
+    else
+      url += "?q=#{city}"
+      url += ",#{country.alpha2.downcase}" if country
+    end
+
     url += "&APPID=#{APPID}&units=metric"
     url
   end

@@ -13,6 +13,14 @@ describe 'Getting weather', type: :feature, js: true do
     expect(page).to_not have_content('Weather for')
   end
 
+  it 'shows weather for random point' do
+    click_button('Random')
+    expect(page).to_not have_content('Please enter country and city')
+    expect(page).to have_content('Weather for')
+    expect(page).to have_content('Visibility')
+    expect(page).to have_content('Temperature')
+  end
+
   it 'shows error when no data given' do
     click_button('Submit')
     expect(page).to have_content('Please enter country and city')

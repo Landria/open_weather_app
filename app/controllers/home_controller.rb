@@ -4,6 +4,11 @@ class HomeController < ApplicationController
     flash[:alert] = @weather.errors if search_params.include?(:city)
   end
 
+  def random
+    @weather = OpenWeatherMapFetcher.fetch_random
+    render :index
+  end
+
   private
 
   def search_params

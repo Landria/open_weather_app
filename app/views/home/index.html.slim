@@ -3,11 +3,15 @@ h1 Open Weather App
 =form_tag(root_path, method: :get, class: 'form-inline')
   input#inlineFormInput.form-control.mb-2.mr-sm-2.mb-sm-0 type="text" name="country" placeholder="Country"
   input#inlineFormInput.form-control.mb-2.mr-sm-2.mb-sm-0 type="text" name="city" placeholder="City"
-  button.btn.btn-primary type="submit"  Submit
+  button.btn.btn-primary type="submit" Submit
+br
+=form_tag(random_path, method: :get, class: 'form-inline')
+  button.btn.btn-primary.btn-lg type="submit" Random
 
 .container#weather
   - if @weather && @weather.valid?
-    h2=weather_title(@weather)
+    h2
+      = weather_title(@weather)
     br
     div
       h4 #{@weather.raw_data['weather'].first['main']} (#{@weather.raw_data['weather'].first['description']})
@@ -28,8 +32,8 @@ h1 Open Weather App
           li Snow: #{@weather.raw_data['snow']['snow.3h']}
       h4 Coordinates:
       ul
-        li lon: #{@weather.raw_data['coord']['lon']}
-        li lat: #{@weather.raw_data['coord']['lat']}
+        li latitude: #{@weather.raw_data['coord']['lat']}
+        li longitude: #{@weather.raw_data['coord']['lon']}
 
       h4 Sys
       ul
