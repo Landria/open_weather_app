@@ -6,6 +6,6 @@ h1 Open Weather App
   button.btn.btn-primary type="submit"  Submit
 
 .container#weather
-  - if @weather
-    h2 Weather for #{params[:country]}, #{params[:city]}
-    = @weather.inspect
+  - if @weather && @weather.valid?
+    h2=weather_title(@weather)
+    = @weather.raw_data
